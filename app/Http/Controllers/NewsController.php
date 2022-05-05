@@ -15,7 +15,7 @@ class NewsController extends Controller
                 }
             }
         }
-        return view("News/news-list", [
+        return view("news/news-list", [
             "catId" => $catId,
             "news" => $news
         ]);
@@ -28,7 +28,7 @@ class NewsController extends Controller
         if($needNewsKey === false){
             abort(404);
         }
-        return view("News/news", [
+        return view("news/news", [
             "id" => $id,
             "news" => $news[$needNewsKey]
         ]);

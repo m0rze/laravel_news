@@ -6,7 +6,7 @@ class CategoryController extends Controller
 {
     public function showCatsList()
     {
-        return view("Category/cats-list", [
+        return view("category/cats-list", [
             "cats" => $this->getCategories()
         ]);
     }
@@ -18,7 +18,7 @@ class CategoryController extends Controller
         if($needCatKey === false){
             abort(404);
         }
-        return view("Category/category", [
+        return view("category/category", [
             "id" => $id,
             "category" => $categories[$needCatKey]
         ]);
