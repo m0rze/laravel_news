@@ -6,6 +6,8 @@ use App\Http\Controllers\CategoryController;
 use App\Http\Controllers\NewsController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\Admin\CategoriesController as AdminCategoriesController;
+use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 
 /*
 |--------------------------------------------------------------------------
@@ -43,7 +45,10 @@ Route::group(["prefix" => "user"], function () {
         ->name("login");
 });
 
-Route::group(["prefix" => "admin"], function () {
+Route::group(["prefix" => "admin", 'as' => 'admin.'], function () {
+    Route::get("/", [AdminDashboardController::class, "show"])
+        ->name("dashboard");
     Route::resource("/news", AdminNewsController::class);
+    Route::resource("/categories", AdminCategoriesController::class);
 });
 
