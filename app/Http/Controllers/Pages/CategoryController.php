@@ -1,12 +1,14 @@
 <?php
 
-namespace App\Http\Controllers;
+namespace App\Http\Controllers\Pages;
+
+use App\Http\Controllers\Controller;
 
 class CategoryController extends Controller
 {
     public function showCatsList()
     {
-        return view("category/cats-list", [
+        return view("pages.category.showlist", [
             "cats" => $this->getCategories()
         ]);
     }
@@ -18,9 +20,9 @@ class CategoryController extends Controller
         if($needCatKey === false){
             abort(404);
         }
-        return view("category/category", [
+        return view("pages.category.showone", [
             "id" => $id,
-            "category" => $categories[$needCatKey]
+            "cat" => $categories[$needCatKey]
         ]);
     }
 }

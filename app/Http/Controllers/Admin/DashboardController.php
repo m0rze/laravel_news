@@ -17,6 +17,10 @@ class DashboardController extends Controller
      */
     public function show(): View|Factory|Application
     {
-        return view("admin.dashboard.show");
+
+        return view("admin.dashboard.show", [
+            "catsCount" => count($this->getCategories()),
+            "newsCount" => count($this->getNews())
+        ]);
     }
 }

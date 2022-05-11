@@ -14,7 +14,10 @@ class NewsController extends Controller
      */
     public function index()
     {
-        return view("admin.news.show");
+        $news = $this->getNews();
+        return view("admin.news.show", [
+            "news" => $news
+        ]);
     }
 
     /**
@@ -35,7 +38,7 @@ class NewsController extends Controller
      */
     public function store(Request $request)
     {
-        dd("TEST");
+        dd("store");
     }
 
     /**
@@ -53,11 +56,14 @@ class NewsController extends Controller
      * Show the form for editing the specified resource.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
     public function edit($id)
     {
-        //
+        $news = $this->getNews();
+        return view("admin.news.edit", [
+            "currentNews" => $news[$id]
+        ]);
     }
 
     /**
@@ -69,7 +75,7 @@ class NewsController extends Controller
      */
     public function update(Request $request, $id)
     {
-        //
+        dd("update");
     }
 
     /**

@@ -20,7 +20,8 @@ class Controller extends BaseController
             $categories[] = [
                 "id" => $i + 1,
                 "name" => $faker->sentence(rand(3, 5)),
-                "description" => $faker->realText()
+                "description" => $faker->realText(),
+                "createData" => $faker->dateTime()
             ];
         }
         return $categories;
@@ -42,7 +43,8 @@ class Controller extends BaseController
                 "title" => $faker->sentence(rand(3, 5)),
                 "body" => $faker->realText(rand(500, 900)),
                 "description" => $faker->realText(rand(200, 300)),
-                "image" => $faker->imageUrl(300, 300)
+                "image" => $faker->imageUrl(300, 300),
+                "createData" => $faker->dateTime()
             ];
         }
         return $news;

@@ -1,13 +1,13 @@
 <?php
 
-use Illuminate\Support\Facades\Route;
-use App\Http\Controllers\HelloController;
-use App\Http\Controllers\CategoryController;
-use App\Http\Controllers\NewsController;
-use App\Http\Controllers\AuthController;
-use App\Http\Controllers\Admin\NewsController as AdminNewsController;
 use App\Http\Controllers\Admin\CategoriesController as AdminCategoriesController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
+use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use App\Http\Controllers\AuthController;
+use App\Http\Controllers\Pages\CategoryController;
+use App\Http\Controllers\Pages\IndexController;
+use App\Http\Controllers\Pages\NewsController;
+use Illuminate\Support\Facades\Route;
 
 /*
 |--------------------------------------------------------------------------
@@ -20,8 +20,8 @@ use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 |
 */
 
-Route::get("/", [HelloController::class, "sayHello"])
-    ->name("hello");
+Route::get("/", IndexController::class)
+    ->name("index");
 
 Route::group(["prefix" => "cat"], function () {
     Route::get("/", [CategoryController::class, "showCatsList"])
@@ -32,9 +32,7 @@ Route::group(["prefix" => "cat"], function () {
 });
 
 Route::group(["prefix" => "news"], function () {
-    Route::get("/", [NewsController::class, "getNewsList"])
-        ->name("newslist");
-    Route::get("/cat/{catId}", [NewsController::class, "getNewsList"])
+    Route::get("/cat/{catId}", [NewsController::class, "getNewsListByCat"])
         ->name("newslistbycat");
     Route::get("/{newsId}", [NewsController::class, "showNews"])
         ->name("onenews");

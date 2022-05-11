@@ -1,3 +1,7 @@
+* {
+    outline: none;
+}
+
 .section-header {
     width: 100%;
     display: flex;
@@ -7,4 +11,31 @@
 
 .add-new-button {
     margin: 10px
+}
+
+.add-new-item {
+    width: 100%;
+}
+
+.form-new-label {
+    font-family: "Helvetica Neue", serif;
+    font-size: 16px;
+    line-height: 30px;
+    padding: 5px 0 5px 10px;
+    font-weight: bolder;
+    color: lightslategray;
+}
+
+.add-new-area {
+    width: 100%;
+    padding: 10px;
+    font-size: 14px;
+}
+
+.add-new-area__small-desc {
+    height: 200px;
+}
+
+.add-new-area__full-desc {
+    height: 400px;
 }

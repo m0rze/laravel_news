@@ -10,14 +10,23 @@
         <table class="table table-striped table-sm">
             <thead>
             <tr>
-                <th>#</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
-                <th>Header</th>
+                <th>id</th>
+                <th>Заголовок</th>
+                <th>Категория</th>
+                <th>Дата добавления</th>
             </tr>
             </thead>
             <tbody>
+            @forelse($news as $oneNews)
+                <tr>
+                    <td>{{ $oneNews["id"] }}</td>
+                    <td><a href="{{ route("admin.news.edit", $oneNews["id"]) }}">{{ $oneNews["title"] }}</a></td>
+                    <td>{{ $oneNews["catId"] }}</td>
+                    <td>{{ $oneNews["createData"]->format("d.m.Y") }}</td>
+                </tr>
+            @empty
+                <h2>Нет новостей</h2>
+            @endforelse
 
             </tbody>
         </table>
