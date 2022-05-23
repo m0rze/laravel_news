@@ -3,6 +3,8 @@
 use App\Http\Controllers\Admin\CategoriesController as AdminCategoriesController;
 use App\Http\Controllers\Admin\DashboardController as AdminDashboardController;
 use App\Http\Controllers\Admin\NewsController as AdminNewsController;
+use \App\Http\Controllers\Pages\OrderController;
+use \App\Http\Controllers\Pages\FeedbackController;
 use App\Http\Controllers\AuthController;
 use App\Http\Controllers\Pages\CategoryController;
 use App\Http\Controllers\Pages\IndexController;
@@ -22,6 +24,20 @@ use Illuminate\Support\Facades\Route;
 
 Route::get("/", IndexController::class)
     ->name("index");
+
+Route::group(["prefix" => "feedback"], function () {
+    Route::get("/", [FeedbackController::class, 'show'])
+        ->name("feedback");
+    Route::post("/send", [FeedbackController::class, 'store'])
+    ->name("sendfeedback");
+});
+
+Route::group(["prefix" => "order"], function () {
+    Route::get("/", [OrderController::class, 'show'])
+        ->name("order");
+    Route::post("/store", [OrderController::class, 'store'])
+        ->name("storeorder");
+});
 
 Route::group(["prefix" => "cat"], function () {
     Route::get("/", [CategoryController::class, "showCatsList"])
