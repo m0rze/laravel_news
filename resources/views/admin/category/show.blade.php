@@ -18,9 +18,9 @@
             <tbody>
             @forelse($cats as $oneCat)
                 <tr>
-                    <td>{{ $oneCat["id"] }}</td>
-                    <td><a href="{{ route("admin.categories.edit", $oneCat["id"]) }}">{{ $oneCat["name"] }}</a></td>
-                    <td>{{ $oneCat["createData"]->format("d.m.Y") }}</td>
+                    <td>{{ $oneCat->id }}</td>
+                    <td><a href="{{ route("admin.categories.edit", $oneCat->id) }}">{{ $oneCat->name }}</a></td>
+                    <td>{{ $oneCat->created_at }}</td>
                 </tr>
             @empty
                 <h2>Нет новостей</h2>

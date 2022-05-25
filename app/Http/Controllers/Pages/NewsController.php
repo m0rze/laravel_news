@@ -3,51 +3,47 @@
 namespace App\Http\Controllers\Pages;
 
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
     public function getNewsListByCat($catId)
     {
+        $catData = DB::table("categories")
+            ->select("id", "name")
+            ->where("id", "=", $catId)
+            ->get();
+        if (count($catData) > 0) {
+            $catData = $catData[0];
+        } else {
+            $catData = null;
+        }
+        $news = DB::table("news")
+            ->select("news.*")
+            ->where("news.category_id", "=", $catId)
+            ->get();
 
-        $news = $this->getNews();
-        $catId = intval($catId);
-        foreach ($news as $k => $oneNews) {
-            if ($oneNews["catId"] !== $catId) {
-                unset($news[$k]);
-            }
-        }
-        $categories = $this->getCategories();
-        foreach ($categories as $oneCat) {
-            if ($oneCat["id"] === $catId) {
-                $needCatKey = $oneCat;
-                break;
-            }
-        }
         return view("pages.news.showbycat", [
-            "cat" => $needCatKey,
+            "catData" => $catData,
             "news" => $news
         ]);
     }
 
     public function showNews($id)
     {
-        $news = $this->getNews();
-        $needNewsKey = array_search($id, array_column($news, 'id'));
-        if ($needNewsKey === false) {
-            abort(404);
+        $news = DB::table("news")
+            ->select("news.*", "categories.id", "categories.name as category_name")
+            ->join("categories", "news.category_id", "=", "categories.id")
+            ->where("news.id", "=", $id)
+            ->get();
+        if (count($news) > 0) {
+            $news = $news[0];
+        } else {
+            $news = [];
         }
-        $news = $news[$needNewsKey];
-        $categories = $this->getCategories();
-        foreach ($categories as $oneCat) {
-            if ($oneCat["id"] === $news["catId"]) {
-                $needCatKey = $oneCat;
-                break;
-            }
-        }
+
         return view("pages.news.show", [
-            "id" => $id,
-            "news" => $news,
-            "category" => $needCatKey
+            "news" => $news
         ]);
     }
 }

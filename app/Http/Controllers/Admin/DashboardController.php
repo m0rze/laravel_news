@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use Illuminate\Contracts\Foundation\Application;
 use Illuminate\Contracts\View\Factory;
 use Illuminate\Contracts\View\View;
+use Illuminate\Support\Facades\DB;
 
 class DashboardController extends Controller
 {
@@ -19,8 +20,8 @@ class DashboardController extends Controller
     {
 
         return view("admin.dashboard.show", [
-            "catsCount" => count($this->getCategories()),
-            "newsCount" => count($this->getNews())
+            "catsCount" => DB::table("categories")->count(),
+            "newsCount" => DB::table("news")->count()
         ]);
     }
 }

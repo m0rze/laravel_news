@@ -4,20 +4,20 @@
     <div class="container">
         <h1>Редактировать новость</h1>
         <div class="row">
-            <form action="{{ route("admin.categories.update", $currentCat["id"]) }}" class="add-new-item" method="post">
+            <form action="{{ route("admin.categories.update", $currentCat->id) }}" class="add-new-item" method="post">
                 @method('PUT')
                 @csrf
                 <div class="row">
                     <div class="col-lg-8">
                         <label for="cat-name" class="form-new-label">Имя категории</label>
-                        <input type="text" class="form-control" id="cat-name" name="cat-name" value="{{ $currentCat["name"] }}">
+                        <input type="text" class="form-control" id="cat-name" name="cat-name" value="{{ $currentCat->name }}">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-8">
                         <label for="cat-desc" class="form-new-label">Описание категории</label>
                         <textarea name="cat-desc" id="cat-desc"
-                                  class="add-new-area add-new-area__small-desc">{{ $currentCat["description"] }}</textarea>
+                                  class="add-new-area add-new-area__small-desc">{{ $currentCat->description }}</textarea>
                     </div>
                 </div>
                 <div class="row">

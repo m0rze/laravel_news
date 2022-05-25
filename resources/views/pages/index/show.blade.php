@@ -5,9 +5,9 @@
         <div class="row">
             @forelse($news as $oneNews)
                 <div class="col-md-4">
-                    <h2>{{ $oneNews["title"] }}</h2>
-                    <p>{{ $oneNews["description"] }}</p>
-                    <p><a class="btn btn-secondary" href="{{ route("onenews", $oneNews["id"]) }}" role="button">View
+                    <h2>{{ $oneNews->title }}</h2>
+                    <p>{{ $oneNews->description }}</p>
+                    <p><a class="btn btn-secondary" href="{{ route("onenews", $oneNews->id) }}" role="button">View
                             details &raquo;</a></p>
                 </div>
             @empty

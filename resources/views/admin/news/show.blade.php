@@ -19,10 +19,10 @@
             <tbody>
             @forelse($news as $oneNews)
                 <tr>
-                    <td>{{ $oneNews["id"] }}</td>
-                    <td><a href="{{ route("admin.news.edit", $oneNews["id"]) }}">{{ $oneNews["title"] }}</a></td>
-                    <td>{{ $oneNews["catId"] }}</td>
-                    <td>{{ $oneNews["createData"]->format("d.m.Y") }}</td>
+                    <td>{{ $oneNews->id }}</td>
+                    <td><a href="{{ route("admin.news.edit", $oneNews->id) }}">{{ $oneNews->title }}</a></td>
+                    <td>{{ $oneNews->category_id }}</td>
+                    <td>{{ $oneNews->created_at }}</td>
                 </tr>
             @empty
                 <h2>Нет новостей</h2>

@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class NewsController extends Controller
 {
@@ -14,7 +15,11 @@ class NewsController extends Controller
      */
     public function index()
     {
-        $news = $this->getNews();
+        $news = DB::table("news")
+            ->select("news.*", "categories.id", "categories.name as category_name")
+            ->join("categories", "news.category_id", "=", "categories.id")
+            ->get();
+
         return view("admin.news.show", [
             "news" => $news
         ]);
@@ -60,9 +65,16 @@ class NewsController extends Controller
      */
     public function edit($id)
     {
-        $news = $this->getNews();
+        $news = DB::table("news")
+            ->where("news.id", "=", $id)
+            ->get();
+        if (count($news) > 0) {
+            $news = $news[0];
+        } else {
+            $news = [];
+        }
         return view("admin.news.edit", [
-            "currentNews" => $news[$id]
+            "currentNews" => $news
         ]);
     }
 

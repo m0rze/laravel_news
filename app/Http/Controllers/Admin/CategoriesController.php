@@ -4,6 +4,7 @@ namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
 use Illuminate\Http\Request;
+use Illuminate\Support\Facades\DB;
 
 class CategoriesController extends Controller
 {
@@ -14,8 +15,11 @@ class CategoriesController extends Controller
      */
     public function index()
     {
+        $category = DB::table("categories")
+            ->select("id", "name", "created_at")
+            ->get();
         return view("admin.category.show", [
-            "cats" => $this->getCategories()
+            "cats" => $category
         ]);
     }
 
@@ -59,9 +63,14 @@ class CategoriesController extends Controller
      */
     public function edit($id)
     {
-        $cats = $this->getCategories();
+        $cats = DB::table("categories")
+            ->where("id", "=", $id)
+            ->get();
+        if(!empty($cats[0])){
+            $cats = $cats[0];
+        }
         return view("admin.category.edit", [
-            "currentCat" => $cats[$id]
+            "currentCat" => $cats
         ]);
     }
 

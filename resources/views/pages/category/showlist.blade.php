@@ -5,7 +5,7 @@
         <ul>
         @forelse($cats as $oneCat)
                 <li>
-                    <a href="{{ route("showcat", $oneCat["id"]) }}">{{ $oneCat["name"] }}</a>
+                    <a href="{{ route("showcat", $oneCat->id) }}">{{ $oneCat->name }}</a>
                 </li>
         @empty
         <h2>Нет категорий</h2>
