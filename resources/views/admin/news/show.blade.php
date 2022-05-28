@@ -7,6 +7,7 @@
         <a href="{{ route("admin.news.create") }}" class="add-new-button btn btn-rnd btn-success">Добавить новую</a>
     </div>
     <div class="table-responsive">
+        @include("inc.messages")
         <table class="table table-striped table-sm">
             <thead>
             <tr>

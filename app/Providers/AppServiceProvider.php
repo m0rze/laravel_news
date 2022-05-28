@@ -2,6 +2,9 @@
 
 namespace App\Providers;
 
+use App\Queries\QueryBuilder;
+use App\Queries\QueryBuilderCategories;
+use App\Queries\QueryBuilderNews;
 use Illuminate\Support\ServiceProvider;
 
 class AppServiceProvider extends ServiceProvider
@@ -13,7 +16,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function register()
     {
-        //
+        $this->app->bind(QueryBuilder::class, QueryBuilderCategories::class);
+        $this->app->bind(QueryBuilder::class, QueryBuilderNews::class);
     }
 
     /**

@@ -3,6 +3,7 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Queries\QueryBuilderNews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,12 +14,9 @@ class NewsController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(QueryBuilderNews $news)
     {
-        $news = DB::table("news")
-            ->select("news.*", "categories.id", "categories.name as category_name")
-            ->join("categories", "news.category_id", "=", "categories.id")
-            ->get();
+        $news = $news->getNews();
 
         return view("admin.news.show", [
             "news" => $news
@@ -63,16 +61,9 @@ class NewsController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit($id)
+    public function edit($id, QueryBuilderNews $news)
     {
-        $news = DB::table("news")
-            ->where("news.id", "=", $id)
-            ->get();
-        if (count($news) > 0) {
-            $news = $news[0];
-        } else {
-            $news = [];
-        }
+        $news = $news->getNewsById($id);
         return view("admin.news.edit", [
             "currentNews" => $news
         ]);

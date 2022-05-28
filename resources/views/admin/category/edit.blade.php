@@ -4,6 +4,7 @@
     <div class="container">
         <h1>Редактировать новость</h1>
         <div class="row">
+            @include("inc.messages")
             <form action="{{ route("admin.categories.update", $currentCat->id) }}" class="add-new-item" method="post">
                 @method('PUT')
                 @csrf

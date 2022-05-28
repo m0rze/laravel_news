@@ -27,6 +27,7 @@ class NewsSeeder extends Seeder
             $data[] = [
                 "category_id" => $faker->numberBetween(1, 10),
                 "source_id" => $faker->numberBetween(1,20),
+                "author" => $faker->userName(),
                 "title" => $faker->sentence(),
                 "body" => $faker->text(500),
                 "description" => $faker->text(),

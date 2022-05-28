@@ -25,7 +25,7 @@ class CategoriesSeeder extends Seeder
         $data = [];
         for($i = 0;$i<=$count;$i++){
             $data[] = [
-                "name" => $faker->sentence(),
+                "title" => $faker->sentence(),
                 "description" => $faker->text(),
                 "created_at" => date('Y-m-d H:i:s',time()),
                 "updated_at" => date('Y-m-d H:i:s',time())

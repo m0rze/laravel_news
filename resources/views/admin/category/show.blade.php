@@ -7,6 +7,7 @@
         <a href="{{ route("admin.categories.create") }}" class="add-new-button btn btn-rnd btn-success">Добавить новую</a>
     </div>
     <div class="table-responsive">
+        @include("inc.messages")
         <table class="table table-striped table-sm">
             <thead>
             <tr>
@@ -19,7 +20,7 @@
             @forelse($cats as $oneCat)
                 <tr>
                     <td>{{ $oneCat->id }}</td>
-                    <td><a href="{{ route("admin.categories.edit", $oneCat->id) }}">{{ $oneCat->name }}</a></td>
+                    <td><a href="{{ route("admin.categories.edit", $oneCat->id) }}">{{ $oneCat->title }}</a></td>
                     <td>{{ $oneCat->created_at }}</td>
                 </tr>
             @empty

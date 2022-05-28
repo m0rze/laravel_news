@@ -3,6 +3,8 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Queries\QueryBuilderCategories;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
 
@@ -13,13 +15,11 @@ class CategoriesController extends Controller
      *
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function index()
+    public function index(QueryBuilderCategories $categories)
     {
-        $category = DB::table("categories")
-            ->select("id", "name", "created_at")
-            ->get();
+        $categories = $categories->getCategories();
         return view("admin.category.show", [
-            "cats" => $category
+            "cats" => $categories
         ]);
     }
 
@@ -61,16 +61,11 @@ class CategoriesController extends Controller
      * @param  int  $id
      * @return \Illuminate\Contracts\Foundation\Application|\Illuminate\Contracts\View\Factory|\Illuminate\Contracts\View\View
      */
-    public function edit($id)
+    public function edit($id, QueryBuilderCategories $categories)
     {
-        $cats = DB::table("categories")
-            ->where("id", "=", $id)
-            ->get();
-        if(!empty($cats[0])){
-            $cats = $cats[0];
-        }
+        $category = $categories->getCategoryById($id);
         return view("admin.category.edit", [
-            "currentCat" => $cats
+            "currentCat" => $category
         ]);
     }
 
