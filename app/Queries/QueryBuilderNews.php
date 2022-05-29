@@ -16,7 +16,7 @@ class QueryBuilderNews implements QueryBuilder
 
     public function getNews(): LengthAwarePaginator
     {
-        return News::paginate(10);
+        return News::with('category')->paginate(10);
     }
 
     public function getNewsById(int $id)

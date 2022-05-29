@@ -11,7 +11,7 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <label for="cat-name" class="form-new-label">Имя категории</label>
-                        <input type="text" class="form-control" id="cat-name" name="cat-name" value="{{ $currentCat->name }}">
+                        <input type="text" class="form-control" id="cat-name" name="title" value="{{ $currentCat->title }}">
                     </div>
                 </div>
                 <div class="row">

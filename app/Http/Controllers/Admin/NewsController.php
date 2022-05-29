@@ -3,9 +3,12 @@
 namespace App\Http\Controllers\Admin;
 
 use App\Http\Controllers\Controller;
+use App\Models\Category;
+use App\Models\News;
 use App\Queries\QueryBuilderNews;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Str;
 
 class NewsController extends Controller
 {
@@ -30,18 +33,30 @@ class NewsController extends Controller
      */
     public function create()
     {
-        return view("admin.news.create");
+        return view("admin.news.create", [
+            "categories" => Category::all(["id", "title"])
+        ]);
     }
 
     /**
      * Store a newly created resource in storage.
      *
      * @param  \Illuminate\Http\Request  $request
-     * @return \Illuminate\Http\Response
+     * @return \Illuminate\Http\RedirectResponse
      */
     public function store(Request $request)
     {
-        dd("store");
+        $validated = $request->only(["title", "description", "body", "category_id", "author", "status"]);
+        $validated["slug"] = Str::slug($validated["title"]);
+        $validated["source_id"] = 1;
+
+        if(News::create($validated)->save()) {
+            return redirect()
+                ->route("admin.news.index")
+                ->with("success", "Новость успешно добавлена");
+        }
+
+        return back()->withInput()->with('error', 'Ошибка добавления');
     }
 
     /**
@@ -65,30 +80,50 @@ class NewsController extends Controller
     {
         $news = $news->getNewsById($id);
         return view("admin.news.edit", [
-            "currentNews" => $news
+            "news" => $news,
+            "categories" => Category::all(["id", "title"])
         ]);
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \Illuminate\Http\Request  $request
-     * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @param \Illuminate\Http\Request $request
+     * @param News $news
+     * @return \Illuminate\Http\RedirectResponse
      */
-    public function update(Request $request, $id)
+    public function update(Request $request, News $news)
     {
-        dd("update");
+        $validated = $request->only([
+            "title", "description", "body", "category_id", "author", "status"
+        ]);
+        $validated["slug"] = Str::slug($validated["title"]);
+        $validated["source_id"] = 1;
+        $news->fill($validated);
+        if($news->save()) {
+            return redirect()
+                ->route("admin.news.index")
+                ->with("success", "Новость успешно обновлена");
+        }
+
+        return back()->with('error', 'Ошибка обновления');
     }
 
     /**
      * Remove the specified resource from storage.
      *
      * @param  int  $id
-     * @return \Illuminate\Http\Response
+     * @return false|string
      */
     public function destroy($id)
     {
-        //
+        if(News::destroy([$id])){
+            return json_encode([
+                "result" => true
+            ]);
+        }
+        return json_encode([
+            "result" => false
+        ]);
     }
 }

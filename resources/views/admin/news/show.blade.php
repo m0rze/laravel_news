@@ -8,6 +8,7 @@
     </div>
     <div class="table-responsive">
         @include("inc.messages")
+        @csrf
         <table class="table table-striped table-sm">
             <thead>
             <tr>
@@ -15,15 +16,20 @@
                 <th>Заголовок</th>
                 <th>Категория</th>
                 <th>Дата добавления</th>
+                <th>Управление</th>
             </tr>
             </thead>
             <tbody>
             @forelse($news as $oneNews)
                 <tr>
                     <td>{{ $oneNews->id }}</td>
-                    <td><a href="{{ route("admin.news.edit", $oneNews->id) }}">{{ $oneNews->title }}</a></td>
-                    <td>{{ $oneNews->category_id }}</td>
+                    <td>{{ $oneNews->title }}</td>
+                    <td>{{ isset($oneNews->category->title) ? $oneNews->category->title : "default" }}</td>
                     <td>{{ $oneNews->created_at }}</td>
+                    <td>
+                        <a href="{{ route("admin.news.edit", $oneNews->id) }}">Edit</a><br>
+                        <a data-id="{{ $oneNews->id }}" data-type="news" href="#" class="delete-link">Delete</a>
+                    </td>
                 </tr>
             @empty
                 <h2>Нет новостей</h2>
@@ -31,5 +37,6 @@
 
             </tbody>
         </table>
+        {{ $news->links() }}
     </div>
 @endsection

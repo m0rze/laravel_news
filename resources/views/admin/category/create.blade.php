@@ -2,7 +2,7 @@
 @section("title", "Добавить категию")
 @section("content")
     <div class="container">
-        <h1>Добавить новость</h1>
+        <h1>Добавить категорию</h1>
         <div class="row">
             @include("inc.messages")
             <form action="{{ route("admin.categories.store") }}" class="add-new-item" method="post">
@@ -11,13 +11,13 @@
                 <div class="row">
                     <div class="col-lg-8">
                         <label for="cat-name" class="form-new-label">Имя категории</label>
-                        <input type="text" class="form-control" id="cat-name" name="cat-name">
+                        <input type="text" class="form-control" id="cat-name" name="title">
                     </div>
                 </div>
                 <div class="row">
                     <div class="col-lg-8">
                         <label for="cat-desc" class="form-new-label">Описание категории</label>
-                        <textarea name="cat-desc" id="cat-desc"
+                        <textarea name="description" id="cat-desc"
                                   class="add-new-area add-new-area__small-desc"></textarea>
                     </div>
                 </div>

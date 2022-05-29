@@ -2,15 +2,21 @@ body {
     font-size: .875rem;
 }
 
+.content {
+    display: flex;
+}
+.active-nav {
+    color: darkblue;
+    font-weight: bolder;
+}
+.nav-link {
+    font-size: large;
+}
 .feather {
     width: 16px;
     height: 16px;
     vertical-align: text-bottom;
 }
-
-/*
- * Sidebar
- */
 
 .sidebar {
     position: fixed;

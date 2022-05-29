@@ -8,20 +8,26 @@
     </div>
     <div class="table-responsive">
         @include("inc.messages")
+        @csrf
         <table class="table table-striped table-sm">
             <thead>
             <tr>
                 <th>id</th>
                 <th>Имя категории</th>
                 <th>Дата добавления</th>
+                <th>Управление</th>
             </tr>
             </thead>
             <tbody>
             @forelse($cats as $oneCat)
                 <tr>
                     <td>{{ $oneCat->id }}</td>
-                    <td><a href="{{ route("admin.categories.edit", $oneCat->id) }}">{{ $oneCat->title }}</a></td>
+                    <td>{{ $oneCat->title }}</td>
                     <td>{{ $oneCat->created_at }}</td>
+                    <td>
+                        <a href="{{ route("admin.categories.edit", $oneCat->id) }}">Edit</a><br>
+                        <a data-id="{{ $oneCat->id }}" data-type="categories" href="#" class="delete-link">Delete</a>
+                    </td>
                 </tr>
             @empty
                 <h2>Нет новостей</h2>
@@ -29,5 +35,6 @@
 
             </tbody>
         </table>
+        {{ $cats->links() }}
     </div>
 @endsection
